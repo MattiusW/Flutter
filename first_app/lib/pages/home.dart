@@ -14,6 +14,11 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.bold)),
         backgroundColor: Colors.deepPurple,
         centerTitle: true,
+        leading: Container(
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              color: Colors.purple, borderRadius: BorderRadius.circular(10)),
+        ),
       ),
     );
   }

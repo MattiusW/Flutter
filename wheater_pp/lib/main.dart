@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
+        scaffoldBackgroundColor: Colors.pinkAccent,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -56,7 +57,10 @@ class _MyFirstState extends State<MyFirstWidget> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text("TODO TEKST"),
+          Padding(
+            padding: EdgeInsets.all(100.0),
+            child: Container(color: Colors.amber, child: Text("TODO TEKST")),
+          ),
           Text("TODO liczba do zwiększania")
         ],
       )),

@@ -17,9 +17,9 @@ class MyFirstWidget extends StatefulWidget {
 class _MyFirstState extends State<MyFirstWidget> {
   int _counter = 1;
 
-  void _incrementCounter() {
+  void _incrementCounter(result) {
     setState(() {
-      _counter *= 2;
+      _counter = result;
     });
   }
 
@@ -41,12 +41,13 @@ class _MyFirstState extends State<MyFirstWidget> {
       )),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Increment',
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          var navigationResult = await Navigator.push(
               context,
               new MaterialPageRoute(
                   builder: (context) =>
                       new MySecondWidget(title: 'count to 32')));
+          _incrementCounter(navigationResult);
         },
         child: Icon(Icons.add),
       ),

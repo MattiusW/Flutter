@@ -49,6 +49,14 @@ class MyFirstWidget extends StatefulWidget {
 }
 
 class _MyFirstState extends State<MyFirstWidget> {
+  int _counter = 1;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter *= 2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,11 +67,18 @@ class _MyFirstState extends State<MyFirstWidget> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.all(100.0),
-            child: Container(color: Colors.amber, child: Text("TODO TEKST")),
+            child: Container(
+                color: Colors.amber,
+                child: Text("You have pushed the button this many times")),
           ),
-          Text("TODO liczba do zwiększania")
+          Text('$_counter')
         ],
       )),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Increment',
+        onPressed: _incrementCounter,
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

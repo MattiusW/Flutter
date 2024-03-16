@@ -31,7 +31,35 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyFirstWidget(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyFirstWidget extends StatefulWidget {
+  const MyFirstWidget({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<StatefulWidget> createState() {
+    return _MyFirstState();
+  }
+}
+
+class _MyFirstState extends State<MyFirstWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.title)),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("TODO TEKST"),
+          Text("TODO liczba do zwiększania")
+        ],
+      )),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wheater_air/MyHomePage.dart';
 import 'package:wheater_air/main.dart';
 
 class PermissionScreen extends StatefulWidget {
@@ -62,7 +63,13 @@ class _PermissionScreenState extends State<PermissionScreen> {
                                   MaterialStateProperty.all(Colors.white),
                               padding: MaterialStatePropertyAll(
                                   EdgeInsets.only(top: 12.0, bottom: 12.0))),
-                          onPressed: () {},
+                          onPressed: () {
+                            //todo ask for permissions
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()));
+                          },
                           child: Text('Zgoda!',
                               style: TextStyle(
                                   fontSize: 16.0, color: Colors.black)))))),

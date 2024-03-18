@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wheater_air/PermissionScreen.dart';
 import 'package:wheater_air/SplashScreen.dart';
 
 void main() {

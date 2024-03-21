@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather/weather.dart';
 import 'package:wheater_air/MyHomePage.dart';
 import 'package:wheater_air/PermissionScreen.dart';
 import 'package:wheater_air/main.dart';
@@ -13,24 +17,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    new Future.delayed(
-        const Duration(seconds: 7),
-        () => {
-              if (havePermission())
-                {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => PermissionScreen()))
-                }
-              else
-                {
-                  //Todo load data
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyHomePage()))
-                }
-            });
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -86,7 +72,28 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  bool havePermission() {
-    return true;
+  @override
+  void initState() {
+    super.initState();
+    if (perrmisionDenied()) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PermissionScreen()));
+    } else {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        executeOnceAfterBuild();
+      });
+    }
+  }
+
+  bool perrmisionDenied() {
+    return false;
+  }
+
+  void executeOnceAfterBuild() async {
+    WeatherFactory wf = new WeatherFactory('630b030ad252cf221335e58564d617ba',
+        language: Language.POLISH);
+    Weather w = await wf.currentWeatherByCityName('Warszawa');
+    log(w.toJson().toString());
+    //todo Navigator.push...
   }
 }

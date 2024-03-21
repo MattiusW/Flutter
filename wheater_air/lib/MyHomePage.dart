@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:weather/weather.dart';
 import 'package:wheater_air/AirScreen.dart';
 import 'package:wheater_air/WeatherScreen.dart';
 
 class MyHomePage extends StatefulWidget {
+  MyHomePage({this.weather});
+
+  final Weather? weather;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }

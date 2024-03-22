@@ -28,25 +28,19 @@ class _WheatherScreenState extends State<WheatherScreen> {
           Container(
               decoration: BoxDecoration(
                   color: new Color(0xffffffff),
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topRight,
-                      colors: [
-                        new Color(0xff6e6cd8),
-                        new Color(0xff40a0ef),
-                        new Color(0xff77e1ee)
-                      ]))),
+                  gradient: getGradientByModd(widget.weather))),
           Align(
               alignment: FractionalOffset.center,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Padding(padding: EdgeInsets.only(top: 45.0)),
-                  Image(image: AssetImage('icons/weather-sunny.png')),
+                  Image(
+                      image: AssetImage(
+                          'icons/${getIconByMood(widget.weather)}.png')),
                   Padding(padding: EdgeInsets.only(top: 41.0)),
                   Text(
-                    // ${DateFormat.MMMMEEEEd('pl').format(DateTime.now())},
-                    "${widget.weather?.weatherDescription}",
+                    "${DateFormat.MMMMEEEEd('pl').format(DateTime.now())},  ${widget.weather?.weatherDescription}",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.lato(
                         textStyle: TextStyle(
@@ -167,5 +161,41 @@ class _WheatherScreenState extends State<WheatherScreen> {
         ],
       ),
     );
+  }
+
+  getIconByMood(Weather? weather) {
+    var main = weather?.weatherMain;
+    if (main == 'Clouds' || main == 'Drizzle' || main == 'Snow') {
+      return 'weather-rain';
+    } else if (main == 'ThunderStorm') {
+      return 'weather-lighting';
+    } else {
+      return 'weather-sunny';
+    }
+  }
+
+  LinearGradient getGradientByModd(Weather? weather) {
+    var main = weather?.weatherMain;
+    if (main == 'Clouds' || main == 'Drizzle' || main == 'Snow') {
+      return LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [
+            Color.fromARGB(255, 174, 174, 193),
+            new Color(0xff40a0ef),
+            new Color(0xff77e1ee)
+          ]);
+    } else {
+      return LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [new Color(0xff5283F0), new Color(0xffCDEDD4)]);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
   }
 }

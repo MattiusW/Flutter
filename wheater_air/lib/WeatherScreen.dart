@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:weather/weather.dart';
 import 'package:wheater_air/MyHomePage.dart';
 import 'package:wheater_air/PermissionScreen.dart';
 import 'package:wheater_air/main.dart';
+import 'package:intl/src/intl/date_format.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class WheatherScreen extends StatefulWidget {
+  WheatherScreen({this.weather});
+
+  final Weather? weather;
+
   @override
   State<WheatherScreen> createState() => _WheatherScreenState();
 }
@@ -37,7 +45,8 @@ class _WheatherScreenState extends State<WheatherScreen> {
                   Image(image: AssetImage('icons/weather-sunny.png')),
                   Padding(padding: EdgeInsets.only(top: 41.0)),
                   Text(
-                    "Poniedziałek 31.03, 18:00 słonecznie",
+                    // ${DateFormat.MMMMEEEEd('pl').format(DateTime.now())},
+                    "${widget.weather?.weatherDescription}",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.lato(
                         textStyle: TextStyle(
@@ -48,7 +57,7 @@ class _WheatherScreenState extends State<WheatherScreen> {
                   ),
                   Padding(padding: EdgeInsets.only(top: 12.0)),
                   Text(
-                    '14°C',
+                    '${widget.weather?.temperature?.celsius?.floor().toString()}°C',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.lato(
                         textStyle: TextStyle(
@@ -58,7 +67,7 @@ class _WheatherScreenState extends State<WheatherScreen> {
                             fontWeight: FontWeight.w400)),
                   ),
                   Text(
-                    'Odczuwalna 13°C',
+                    'Odczuwalna ${widget.weather?.tempFeelsLike?.celsius?.floor().toString()}°C',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.lato(
                         textStyle: TextStyle(
@@ -89,7 +98,7 @@ class _WheatherScreenState extends State<WheatherScreen> {
                               ),
                               Padding(padding: EdgeInsets.only(top: 2.0)),
                               Text(
-                                '1020 hPa',
+                                '${widget.weather?.pressure?.floor()} hpa',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                     textStyle: TextStyle(
@@ -123,7 +132,7 @@ class _WheatherScreenState extends State<WheatherScreen> {
                               ),
                               Padding(padding: EdgeInsets.only(top: 2.0)),
                               Text(
-                                '16 km/h',
+                                '${widget.weather?.windSpeed} m/s',
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.lato(
                                     textStyle: TextStyle(
@@ -139,16 +148,19 @@ class _WheatherScreenState extends State<WheatherScreen> {
                     ),
                   ),
                   Padding(padding: EdgeInsets.only(top: 24.0)),
-                  Text(
-                    "Opady: 0,1 mm/12h",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.lato(
-                        textStyle: TextStyle(
-                            fontSize: 14.0,
-                            height: 1.2,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400)),
-                  ),
+                  if (widget.weather?.rainLastHour != null)
+                    Text(
+                      "Opady: ${widget.weather?.rainLastHour} mm/1h",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              fontSize: 14.0,
+                              height: 1.2,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400)),
+                    )
+                  else
+                    Text("Brak wiatru"),
                   Padding(padding: EdgeInsets.only(top: 68.0)),
                 ],
               )),

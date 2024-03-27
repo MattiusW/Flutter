@@ -181,7 +181,7 @@ class _WheatherScreenState extends State<WheatherScreen> {
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           colors: [
-            Color.fromARGB(255, 174, 174, 193),
+            new Color(0xff6E6CD8),
             new Color(0xff40a0ef),
             new Color(0xff77e1ee)
           ]);

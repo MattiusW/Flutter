@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weather/weather.dart';
 import 'package:wheater_air/MyHomePage.dart';
@@ -75,7 +76,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    if (perrmisionDenied()) {
+    checkPermission();
+  }
+
+  checkPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => PermissionScreen()));
     } else {
@@ -83,10 +90,6 @@ class _SplashScreenState extends State<SplashScreen> {
         executeOnceAfterBuild();
       });
     }
-  }
-
-  bool perrmisionDenied() {
-    return false;
   }
 
   void executeOnceAfterBuild() async {
